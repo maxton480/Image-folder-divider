@@ -2,8 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Image Divider Mobile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Image Folder Divider Mobile</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 <style>
@@ -119,7 +119,12 @@ button:active{
 async function processImages(){
 
 const folderName = document.getElementById("mainFolder").value.trim();
-const files = document.getElementById("images").files;
+
+// ✅ FIX: Files ko name ke hisab se sort kiya (numeric order mein)
+const files = Array.from(document.getElementById("images").files).sort((a, b) => 
+    a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })
+);
+
 const progress = document.getElementById("progress");
 const status = document.getElementById("status");
 
